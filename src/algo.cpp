@@ -42,6 +42,18 @@ string caesar_decrypt(string cipher, int key) {
 }
 /* END: Caesar Cipher */
 
+/* VIGENERE Cipher using ASCII Chars. Mod is 95 */
+string vigenere_encrypt(string message, string key) {
+    
+    string cipher("");
+
+    int const keyLen = key.size();
+
+    int j(0);
+
+    return cipher;
+}
+
 
 
 
