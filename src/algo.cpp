@@ -4,13 +4,19 @@
 
 using namespace std;
 
-/* Caesar Cipher */
-string caesar(string message, int key) {
+/* Caesar Cipher using printable ASCII chars [32 (space) to 126 (~)] */
+string caesar_encrypt(string message, int key) {
     
     string cipher("");
 
     for(int i=0;i<message.size();i++){
-        cipher += (message[i] - 'A'+key)%26+'A';
+
+        int asciiNumber = int(message[i]) - 32;
+        asciiNumber = (asciiNumber + key) % 95;
+        asciiNumber += 32;
+
+        cipher.push_back(char(asciiNumber));
+        
     }
 
     return cipher;
@@ -21,12 +27,21 @@ string caesar_decrypt(string cipher, int key) {
     string message("");
 
     for(int i=0;i<cipher.size();i++){
-        message += (cipher[i]-'A'-key+26)%26+'A';
+
+        // Multiplier to avoid negative numbers
+        int multiplier = key/95 + 1;
+        int asciiNumber = int(cipher[i]) - 32;
+        asciiNumber += multiplier*95;
+        asciiNumber = (asciiNumber - key) % 95;
+        asciiNumber += 32;
+
+        message.push_back(char(asciiNumber));
     }
 
     return message;
-
 }
+/* END: Caesar Cipher */
+
 
 
 
