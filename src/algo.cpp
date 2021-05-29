@@ -98,4 +98,3 @@ string vigenere_decrypt(string cipher, string key) {
     return message;
 }
 /* END: VIGENERE Cipher */
-
