@@ -2,36 +2,41 @@
 #include <string>
 #include "crack.hpp"
 #include <vector>
+#include <map>
 
 using namespace std;
-// faire une class avec methods different algo de craquage?
-// ou simplement des functions?
 
-// frequency analysis using ASCII printable numbers
-vector<double> frequencies(string text, bool normalize, bool afficher)
+Crack::Crack(std::string message) : m_message(message), m_frequencies()
 {
-    int const lenAscii(95); // number of ascii printable chars
 
-    vector<double> asciiLetters(lenAscii,0.);
+}
 
-    for (int i=0; i<text.size(); i++) {
+Crack::~Crack()
+{
 
-        if (normalize) {
-            asciiLetters[int(text[i])-32] += 1./text.size();
-        } else {
-            asciiLetters[int(text[i])-32] += 1.;
-        }
+}
 
+map<char, double> Crack::getFrequencies() const {
+    return m_frequencies;
+}
+
+void Crack::frequenciesAnalysis() {
+
+    int const n(95);
+    vector<double> asciiLetters(n);
+
+    
+    for (int i=0; i<m_message.size(); i++) {
+        asciiLetters[int(m_message[i])-32] += 1./m_message.size();
     }
 
-    if (afficher) {
+    map<char, double> freq;
 
-        for (int j=0; j<lenAscii; j++) {
-            cout << char(j+32) << "  " << asciiLetters[j] << endl;
-        }
-
+    for (int i=0; i<asciiLetters.size(); i++) {
+        
+        freq.insert({char(i+32), asciiLetters[i]});
     }
 
-    return asciiLetters;
+    m_frequencies = freq;
 
 }

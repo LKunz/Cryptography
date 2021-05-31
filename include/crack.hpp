@@ -5,8 +5,22 @@
 
 #include <string.h>
 #include <vector>
+#include <map>
 
-std::vector<double> frequencies(std::string text, bool normalize=true, bool afficher=false);
+class Crack
+{
+    public:
+
+    Crack(std::string message);
+    ~Crack();
+    void frequenciesAnalysis();
+    std::map<char, double> getFrequencies() const;
 
 
-#endif // ALGO_H_INCLUDED
+    private:
+
+    std::string m_message;
+    std::map<char, double> m_frequencies;
+};
+
+#endif

@@ -5,6 +5,7 @@
 #include <string>
 #include <cmath>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -19,7 +20,17 @@ int main()
     cout << cipher << endl;
     cout << decode << endl;
 
-    vector<double> freq = frequencies(text, true, true);
+    Crack test(text);
+
+    test.frequenciesAnalysis();
+
+    map<char, double> freq = test.getFrequencies();
+
+    for (auto itr = freq.begin(); itr != freq.end(); ++itr) {
+		cout << itr->first << '\t' << itr->second << '\n';
+	}
+
+    cout << freq[" "] << endl;
 
     return 0;
 }
