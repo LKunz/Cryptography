@@ -11,8 +11,23 @@ using namespace std;
 
 int main()
 {
-    string text("Nous partons dans 15 minutes.~iiiiiiiiiiiiiiiiiiii");
-    //string cipher1 = caesar_encrypt(text, 1);
+    ifstream file("./python/sample.txt");
+
+    string line;
+    string text;
+
+    if (file) {
+
+        while (getline(file, line)) {
+            text += line;
+        }
+
+    } else {
+        cout << "ERROR!" << endl;
+    }
+
+    cout << text << endl;
+ 
     string cipher = vigenere_encrypt(text, "CIPHER");
     string decode = vigenere_decrypt(cipher, "CIPHER");
 
@@ -26,12 +41,12 @@ int main()
 
     map<char, double> freq = test.getFrequencies();
 
-    /*for (pair<char, double> entry : freq)
+    for (pair<char, double> entry : freq)
     {
         cout << entry.first << "\t" << entry.second << endl;
-    }*/
+    }
 
     cout << freq[' '] << endl;
-
+    
     return 0;
 }
