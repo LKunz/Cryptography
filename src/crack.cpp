@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Crack::Crack(std::string message) : m_message(message), m_frequencies()
+Crack::Crack(string message) : m_message(message), m_frequencies()
 {
 
 }
@@ -34,7 +34,7 @@ void Crack::frequenciesAnalysis() {
 
     for (int i=0; i<asciiLetters.size(); i++) {
         
-        freq.insert({char(i+32), asciiLetters[i]});
+        freq.insert(make_pair(char(i+32), asciiLetters[i]));
     }
 
     m_frequencies = freq;

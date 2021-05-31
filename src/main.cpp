@@ -26,11 +26,12 @@ int main()
 
     map<char, double> freq = test.getFrequencies();
 
-    for (auto itr = freq.begin(); itr != freq.end(); ++itr) {
-		cout << itr->first << '\t' << itr->second << '\n';
-	}
+    for (pair<char, double> entry : freq)
+    {
+        cout << entry.first << "\t" << entry.second << endl;
+    }
 
-    cout << freq[" "] << endl;
+    cout << freq[' '] << endl;
 
     return 0;
 }
