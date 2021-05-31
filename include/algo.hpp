@@ -13,4 +13,7 @@ std::string caesar_decrypt(std::string cipher, int key);
 std::string vigenere_encrypt(std::string message, std::string key);
 std::string vigenere_decrypt(std::string message, std::string key);
 
+/* RSA */
+std::string rsa_encrypt(std::string message, std::pair<int, int> key);
+
 #endif // ALGO_H_INCLUDED

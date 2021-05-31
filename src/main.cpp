@@ -10,7 +10,7 @@
 using namespace std;
 
 int main()
-{
+{   
     ifstream file("./python/sample.txt");
 
     string line;
@@ -25,9 +25,7 @@ int main()
     } else {
         cout << "ERROR!" << endl;
     }
-
-    cout << text << endl;
- 
+    /*
     string cipher = vigenere_encrypt(text, "CIPHER");
     string decode = vigenere_decrypt(cipher, "CIPHER");
 
@@ -47,6 +45,10 @@ int main()
     }
 
     cout << freq[' '] << endl;
+    */
+    
+    pair<int, int> rsa_key (17, 31);
+    string m = rsa_encrypt(text, rsa_key);
     
     return 0;
 }
