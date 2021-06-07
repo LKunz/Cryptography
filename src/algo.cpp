@@ -2,6 +2,9 @@
 #include <string.h>
 #include "algo.hpp"
 #include <vector>
+#include <cmath>
+#include <cstdlib>
+#include <time.h>
 
 using namespace std;
 
@@ -184,3 +187,5 @@ string rsa_encrypt(string message, pair<int, int> key) {
 
     return cipher;
 }
+
+/* END: RSA*/
