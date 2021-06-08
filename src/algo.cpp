@@ -5,6 +5,9 @@
 #include <cmath>
 #include <cstdlib>
 #include <time.h>
+//#include <boost/multiprecision/cpp_int.hpp>
+
+//using namespace boost::multiprecision;
 
 using namespace std;
 
@@ -123,8 +126,6 @@ vector<int> make_block(string text, int size) {
         blocs.push_back(stoi(textNum.substr(size*i, size)));
     }
 
-    cout << textNum << endl;
-
     return blocs;
 }
 
@@ -145,8 +146,6 @@ string make_text(vector<int> blocs, int size) {
         textNum += letterNum;
 
     }
-
-    cout << textNum << endl;
 
     for (int i=0; i<textNum.size()/3; i++) {
         text += stoi(textNum.substr(3*i, 3));
@@ -228,25 +227,59 @@ string rsa_encrypt(string message, int p, int q) {
     pair<int, int> public_key = generate_public_key(p, q);
     int n = public_key.first;
     int e = public_key.second;
-    cout << n << "  " << e << endl;
+    cout << "Public Key is (n, e): ("<< n << ",  " << e << ")." << endl;
     
     // Make blocs
-    vector<int> blocs = make_block(message, 4);
+    vector<int> blocs = make_block(message, 2);
 
     // Encrypt
-    string cipher = "";
+    string cipher;
+    unsigned long long t;
+    string t3;
 
     for (int i=0; i<blocs.size(); i++) {
-        cipher += to_string(pow(blocs[i], e) % n); // ICIICI
+        t = pow(blocs[i], e);
+        t3 = to_string(t % n);
+        while (t3.size() < 2) {
+            t3 = "0" + t3;
+        }
+        cipher += t3; 
     }
-
-    //string cipher = make_text(t, 4);
-
-
-    cout << cipher << endl;
-
 
     return cipher;
 }
+/*
+string rsa_decrypt(string cipher, int d, int n) {
+    
+    
+    srand (time(NULL));
+
+    // Generate public key
+    pair<int, int> public_key = generate_public_key(p, q);
+    int n = public_key.first;
+    int e = public_key.second;
+    cout << n << "  " << e << endl;
+    
+    // Make blocs
+    vector<int> blocs = make_block(message, 2);
+
+    // Encrypt
+    string cipher;
+    unsigned long long t;
+    string t3;
+
+    for (int i=0; i<blocs.size(); i++) {
+        cout << blocs[i] << endl;
+        t = pow(blocs[i], e);
+        t3 = to_string(t % n);
+        while (t3.size() < 2) {
+            t3 = "0" + t3;
+        }
+        cipher += t3; 
+    }
+
+    return cipher;
+}
+*/
 
 /* END: RSA*/

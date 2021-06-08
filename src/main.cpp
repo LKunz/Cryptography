@@ -38,7 +38,9 @@ int main()
 
 
     // RSA    
-    string m = rsa_encrypt(text, 17, 31);
+    string m = rsa_encrypt(text, 5, 7);
+
+    cout << m << endl;
     
     return 0;
 }
