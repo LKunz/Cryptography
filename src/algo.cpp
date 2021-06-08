@@ -104,15 +104,57 @@ string vigenere_decrypt(string cipher, string key) {
 /* END: VIGENERE Cipher */
 
 /* RSA */
-int make_block(string text) {
+vector<int> make_block(string text, int size) {
+    
+    string letterNum;
+    string textNum = "";
+    vector<int> blocs;
+    
     
     for (int i=0; i<text.size(); i++) {
-        int asciiLetter = int(text[i]);
-        cout << asciiLetter << endl;
-        
+        letterNum = to_string(int(text[i]));
+        if (letterNum.size() == 2) {
+            letterNum = "0" + letterNum;
+        }
+        textNum += letterNum;
     }
-    return 0;
+
+    for (int i=0;i<textNum.size()/size+1;i++) {
+        blocs.push_back(stoi(textNum.substr(size*i, size)));
+    }
+
+    cout << textNum << endl;
+
+    return blocs;
 }
+
+
+string make_text(vector<int> blocs, int size) {
+
+    string text = "";
+    string textNum = "";
+    string letterNum;
+
+    for (int i=0; i<blocs.size(); i++) {
+
+        letterNum = to_string(blocs[i]);
+        while (letterNum.size() != size && i==0) {
+            letterNum = "0" + letterNum;
+        }
+
+        textNum += letterNum;
+
+    }
+
+    cout << textNum << endl;
+
+    for (int i=0; i<textNum.size()/3; i++) {
+        text += stoi(textNum.substr(3*i, 3));
+    }
+
+    return text;
+}
+
 
 int gcd(int a, int b)  
  {  
@@ -149,18 +191,13 @@ int isPrime(int n){
   return flag;
 }
 
-string rsa_encrypt(string message, pair<int, int> key) {
-    
-    srand (time(NULL));
-    string cipher;
-    int p = key.first;
-    int q = key.second;
-    // check if p and q are prime
+pair<int, int> generate_public_key(int p, int q) {
 
-    // compute n and e
+    // check if p and q are prime
+    //...
+
     int n = p*q;
     int phi = (p-1)*(q-1);
-
     int lambda = lcm(p-1,q-1);
     int e;
     vector<int> tot;
@@ -176,11 +213,35 @@ string rsa_encrypt(string message, pair<int, int> key) {
     int ran = rand() % size;
     e = tot[ran];
 
-    cout << "The public key is (n, e): (" << n << ", " << e << ")" << endl;
+    pair<int, int> key;
+    key.first = n;
+    key.second = e;
 
-    int t = make_block(message);
+   return key;
+}
+
+string rsa_encrypt(string message, int p, int q) {
     
-    //cipher = modular(message, e, n);
+    srand (time(NULL));
+
+    // Generate public key
+    pair<int, int> public_key = generate_public_key(p, q);
+    int n = public_key.first;
+    int e = public_key.second;
+    cout << n << "  " << e << endl;
+    
+    // Make blocs
+    vector<int> blocs = make_block(message, 4);
+
+    // Encrypt
+    string cipher = "";
+
+    for (int i=0; i<blocs.size(); i++) {
+        cipher += to_string(pow(blocs[i], e) % n); // ICIICI
+    }
+
+    //string cipher = make_text(t, 4);
+
 
     cout << cipher << endl;
 

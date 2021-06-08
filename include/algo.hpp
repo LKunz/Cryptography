@@ -14,6 +14,6 @@ std::string vigenere_encrypt(std::string message, std::string key);
 std::string vigenere_decrypt(std::string message, std::string key);
 
 /* RSA */
-std::string rsa_encrypt(std::string message, std::pair<int, int> key);
+std::string rsa_encrypt(std::string message, int p, int q);
 
 #endif // ALGO_H_INCLUDED

@@ -26,30 +26,19 @@ int main()
     } else {
         cout << "ERROR!" << endl;
     }
-    /*
+    
     string cipher = vigenere_encrypt(text, "CIPHER");
     string decode = vigenere_decrypt(cipher, "CIPHER");
 
-    cout << text << endl;
-    cout << cipher << endl;
-    cout << decode << endl;
+    //cout << text << endl;
+    //cout << cipher << endl;
+    //cout << decode << endl;
 
-    Crack test(text);
+    text = "AAA!salut";
 
-    test.frequenciesAnalysis();
 
-    map<char, double> freq = test.getFrequencies();
-
-    for (pair<char, double> entry : freq)
-    {
-        cout << entry.first << "\t" << entry.second << endl;
-    }
-
-    cout << freq[' '] << endl;
-    */
-    
-    pair<int, int> rsa_key (17, 31);
-    string m = rsa_encrypt(text, rsa_key);
+    // RSA    
+    string m = rsa_encrypt(text, 17, 31);
     
     return 0;
 }
